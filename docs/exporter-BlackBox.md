@@ -151,7 +151,7 @@ Ir a la web de Prometheus → apartado **Alerts** y confirmar que las alertas ap
 | Parámetro | Valor |
 |-----------|-------|
 | Puerto por defecto | **9115** |
-| ¿Es configurable? | ✅ Sí |
+| ¿Es configurable? |  Sí |
 
 ---
 
