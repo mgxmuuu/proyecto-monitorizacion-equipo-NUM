@@ -1,0 +1,51 @@
+
+# Prometheus
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Node Exporter del propio servidor
+  - job_name: "node"
+    static_configs:
+      - targets: ["10.105.0.50:9100"]
+        labels:
+          entorno: "laboratorio"
+          equipo: "asir"
+
+  # Process exporter
+  - job_name: "process-exporter"
+    static_configs:
+      - targets: ["10.105.0.50:9256"]
+        labels:
+          entorno: "laboratorio"
+          equipo: "asir"
+
+  # Blackbox exporter
+  - job_name: "blackbox"
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+
+    static_configs:
+      - targets:
+          - "http://10.105.0.50"
+
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+
+      - source_labels: [__param_target]
+        target_label: instance
+
+      - target_label: __address__
+        replacement: "10.105.0.50:9115"
+
+        # MySQL exporter
+  - job_name: "mysql"
+    static_configs:
+      - targets: ["10.105.0.50:9104"]
+
+  # SSL exporter
+  - job_name: "ssl"
+    static_configs:
+      - targets: ["localhost:9090"]
