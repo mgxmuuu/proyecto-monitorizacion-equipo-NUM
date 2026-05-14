@@ -81,8 +81,6 @@ Añadir el siguiente bloque (respetar la indentación YAML estrictamente):
       replacement: 127.0.0.1:9115  # Apunta al Blackbox que acabamos de levantar
 ```
 
-> ⚠️ El archivo `.yml` es muy estricto con los espacios y las tabulaciones.
-
 ### Paso 6 — Verificar en Prometheus
 
 Reiniciar Prometheus e ir a la web → **Status > Targets**. Debe aparecer una nueva sección llamada `blackbox_prueba` con las URLs de Google y Ubuntu en estado **UP**.
