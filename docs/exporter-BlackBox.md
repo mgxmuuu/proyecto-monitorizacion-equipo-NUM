@@ -187,7 +187,7 @@ Ir a la web de Prometheus → apartado **Alerts** y confirmar que las alertas ap
 
 ---
 
-## 5. Ejemplo de alerta (lenguaje natural)
+## 5. Ejemplo de alerta
 
 > **"Si la métrica de tiempo de respuesta total (`probe_duration_seconds`) supera los 5 segundos de forma continua durante 3 minutos, enviar una alerta de _Degradación de Servicio Web_."**
 
