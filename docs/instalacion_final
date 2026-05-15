@@ -1,8 +1,0 @@
-# Prometheus - Instalación final
-** Magali Pérez **
----
-
-# ¿Qué es Prometheus?
-Prometheus es una herramienta de monitorización y recopilación de métricas de código abierto.
-Permite supervisar servidores, servicios, aplicaciones y contenedores en tiempo real mediante métricas
-obtenidas desde distintos exporters.
