@@ -2,13 +2,14 @@
 
 ### Identificación
 *Sara Cordón Goy*
+1º ASIR
 
 <br>
 
 ## ¿Qué hace este exporter?
 
 Process Exporter se encarga de gestionar los procesos específicos de la aplicación. 
-Su objetivo es controlar la calidad general de la app.
+Su objetivo es controlar la calidad general de la app. Monitoriza los procesos y permite identificar cuáles de ellos están consumiendo demasiados recursos.
 
 <br>
 
