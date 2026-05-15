@@ -1,8 +1,8 @@
- ------identificación------
- mario Garcia Pereiro
- mysql exporter
- ------que hace este exporter------
-   su funcion traducir la base de datos de SQL a lenuaje prometheus convirtienedo sus consultas en metricas.
+#Mysql Exporter
+#Identificación
+ Mario Garcia Pereiro
+#Que hace este exporter
+Su funcion traducir la base de datos de SQL a lenuaje prometheus convirtienedo sus consultas en metricas.
  ------metricas tipicas------
  1. mysql_global_status_threads_connected
       Tipo: gauge
