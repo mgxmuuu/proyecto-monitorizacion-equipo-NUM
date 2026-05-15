@@ -49,7 +49,7 @@ En este punto, ya está funcionando correctamente. Nuestra terminal tiene el sig
 
 ![Terminal](../img/pe2.png)
 
-Esto significa que el Exporter está encendido, escuchando en el puerto 9256 y leyendo los procesos de /proc. Por defecto, expone métricas en: [Prometheus /metrics](http://localhost:9256/metrics)
+Esto significa que el Exporter está encendido, escuchando en el puerto 9256 y leyendo los procesos de /proc. Por defecto, expone métricas en: http://localhost:9256/metrics --> [/metrics](http://localhost:9256/metrics)
 
 ![Métricas](../img/pe3.png)
 
@@ -85,10 +85,11 @@ Ya funciona correctamente, muestra métricas y aparece en Prometheus.
 
 <br>
 
-### 8. Abrimos Prometheus en http://localhost:9090 y probamos una consulta como:
+### 8. Abrimos Prometheus en http://localhost:9090 [Prometheus](http://localhost:9090) y probamos una consulta como:
 ```bash
 namedprocess_namegroup_cpu_seconds_total
 ```
 
 ![Consulta](../img/pe8.png)
 
+Nuestro exporter ya está listo.
