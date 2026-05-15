@@ -35,7 +35,16 @@ cd process-exporter-0.8.7.linux-amd64
 sudo mkdir -p /etc/process-exporter
 sudo nano /etc/process-exporter/config.yml
 ```
-![Configuración](../img/pe1.png)
+```yaml
+process_names:
+  - name: "nginx"
+    cmdline:
+      - nginx
+
+  - name: "python-app"
+    cmdline:
+      - python
+```
 
 Process-Exporter necesita saber qué procesos monitorizar, por lo que creamos el archivo "config.yml" con los siguientes parámet6.ros.
 
@@ -56,8 +65,21 @@ Esto significa que el Exporter está encendido, escuchando en el puerto 9256 y l
 <br>
 
 ### 5. Ahora toca configurar Prometheus editando el archivo prometheus.yml y añadimos un nuevo job:
+```yaml
+process_names:
+  - name: "nginx"
+    cmdline:
+      - nginx
 
-![Archivo Prometheus](../img/pe4.png)
+  - name: "python-app"
+    cmdline:
+      - python
+
+scrape_configs:
+  - job_name: 'process-exporter'
+    static_configs:
+      - targets_ ['localhost:9256']
+```
 
 Al añadir este job estamos indicando que queremos que estas métricas aparezcan en Prometheus.
 
@@ -76,8 +98,35 @@ sudo systemctl status prometheus
 ```bash
 sudo nano /etc/prometheus/prometheus.yml
 ```
+```yaml
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
 
-![Archivo Prometheus](../img/pe6.png)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets_ ['localhost:9090']
+
+  - job_name: 'process-exporter'
+    static_configs:
+      - targets:
+          - "localhost:9256"
+        labels:
+          entorno: "laboratorio"
+          equipo:  "asir"
+        
+```
+En este caso sólo estoy mostrando mi exporter en concreto pero al finalizar la práctica este archivo también contendrá el resto.
 
 Ya funciona correctamente, muestra métricas y aparece en Prometheus.
 
