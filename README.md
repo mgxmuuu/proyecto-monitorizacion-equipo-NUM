@@ -48,6 +48,36 @@ Escribe el responsable de cada elemento en vuestro proyecto.
 
 <br>
 
+###  Decisiones que hemos tomado
+
+Escogimos esta serie de exporters debido a las características que queríamos monitorizar y teniendo en cuenta la arquitectura de la app web y de las limitaciones que posee:
+
+- **Blackbox Exporter** fue elegido para comprobar la disponibilidad y latencia de la aplicación desde el exterior mediante peticiones HTTP y pings.
+- **Node Exporter** se utiliza para monitorizar el estado del sistema operativo y del hardware, permitiendo detectar saturación de CPU, RAM o disco. Exporter básico y clave.
+- **MySQLd Exporter** fue incluido para controlar el estado de la base de datos, especialmente conexiones, consultas y carga del servicio MySQL. Uno de los exporters mas importantes.
+- **Process Exporter** permite supervisar procesos concretos de la aplicación, algo que otros exporters más generales no hacen de forma específica.
+- **SSL Exporter** se encarga de comprobar el estado de los certificados HTTPS y la seguridad de la conexión web.La otra opción valorada era utilizar **Nginx Exporter**, pero en comparación con **SSL Exporter**,
+  era inferior en cuanto a rendimiento y utilización.
+
+En cada exporter utilizamos los puertos por defecto de cada exporter para facilitar la configuración y evitar problemas de compatibilidad con Prometheus, pese a que podríamos haberlos cambiado:
+
+- Node Exporter → puerto **9100**
+- MySQLd Exporter → puerto **9104**
+- Blackbox Exporter → puerto **9115**
+- Process Exporter → puerto **9256**
+- SSL Exporter → puerto **9219**
+
+También se valoró utilizar otras herramientas como cAdvisor, pero finalmente fue descartada:
+- **cAdvisor** no se implementó porque el proyecto no utiliza contenedores Docker, y además no teníamos los conocimientos adecuados para utilizarlo.
+
+
+###  Limitaciones conocidas
+
+- Poder haber implementado más métricas en forma de Dashboard en Grafana y Prometheus, para poder tener más controlados los errores.
+- Algunas métricas del Process Exporter pueden tardar en actualizarse dependiendo de la carga del sistema.
+- SSL Exporter únicamente monitoriza certificados HTTPS básicos y no configuraciones avanzadas de seguridad.
+- No se ha implementado alta disponibilidad(HA) de Prometheus.
+
 
 ### Documentación del proyecto
 
@@ -57,3 +87,16 @@ Escribe el responsable de cada elemento en vuestro proyecto.
 - [Process Exporter](https://github.com/ncabatoff/process-exporter)
 - [Node Exporter](https://github.com/prometheus/node_exporter)
 
+
+### Datos adicionales relevantes
+
+- El README.md en una inmensa mayoría fue creado y desarollado por Sara, y Alejandro editó algunos apartados relevantes. Los demás miembros del grupo: Héctor, Keyla, Magali y Mario, también trabajaron proporcionando         los datos de sus respectivos exporters, además de su documento correspondiente. Además, varios apartados del mismo readme fueron revisaron mediante inteligencia artificial para verificar su correcta distribución y         fiabilidad.
+- Toda la información y documentación que hemos utilizado para realizar tanto el documento ya entregado en Classroom como de este repositorio en Github, ha sido recopilada de la tarea de expertos de Exporters con sus        respectivos documentos, y de páginas web especializadas en cada Exporter como de los repositorios oficiales en el propio Github(https://github.com/ribbybibby/ssl_exporter - ejemplo).
+
+
+## Conclusión del proyecto
+
+- Este proyecto nos ha permitido actuar como un equipo de SRE, donde nuestro objetivo no es solo desplegar herramientas, sino mejorar la observabilidad de una aplicación real.
+- El valor principal del proyecto no ha sido la instalación de herramientas, sino la capacidad de decidir qué medir, por qué medirlo y cómo interpretar los resultados.
+- Como grupo, con el trabajo que hemos desempeñado en el proyecto podemos afirmar que hemos solucionado el problema con el que nos enfrentamos y que además hemos aprendido no solo como implementar monitorización
+  en una app sino también como trabajar en un ambiente empresarial.
