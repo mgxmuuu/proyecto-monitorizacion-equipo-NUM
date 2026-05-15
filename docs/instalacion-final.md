@@ -1,5 +1,6 @@
-# Prometheus - Sistema de Monitorización
+# Prometheus - Instalación Final
 
+**Magali Pérez**
 ---
 
 # ¿Qué es Prometheus?
@@ -48,12 +49,42 @@ Para ello implementaremos los siguientes exporters:
 
 ---
 
-# Acceso desde nuestra máquina al servidor
+# Configuración del fichero prometheus.yml
 
+El archivo `prometheus.yml` es el encargado de indicar a Prometheus qué exporters debe monitorizar y en qué puerto se encuentran disponibles.
+
+Cada exporter estará asociado mediante un `job_name`, utilizando la dirección IP del servidor y el puerto correspondiente.
+
+---
+
+# Estructura general
+
+| Exporter | Puerto |
+|---|---|
+| Prometheus | 9090 |
+| Node Exporter | 9100 |
+| Blackbox Exporter | 9115 |
+| Process Exporter | 9256 |
+| MySQL Exporter | 9104 |
+| SSL Exporter | 9219 |
+
+---
+
+# Configuración del fichero prometheus.yml
+
+![Configuración Prometheus](../img/screen-prometheus.yml.jpg)
+
+# Acceso desde nuestra máquina al servidor
 
 Desde nuestra máquina cliente accedemos mediante navegador web utilizando la IP del servidor y el puerto correspondiente.
 
 ## Acceso a Prometheus
+
+A través de la terminal de Prometheus nos conectamos poniendo la ip del server y el puerto correspondiente
+
+
+
+
 
 ```bash
 http://IP_SERVIDOR:9090
