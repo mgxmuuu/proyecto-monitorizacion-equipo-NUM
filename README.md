@@ -10,7 +10,10 @@
 <br>
 
 Lo que nos interesa monitorizar: latencia, errores, tráfico y saturación.
+
 Vamos a instalar cuatro/cinco Exporters: Blackbox, Node Exporter, SSL Exporter, Process-Exporter y MySQLd Exporter.
+
+<br>
 
 Necesitamos un sistema de mensajería para las alertas, para lo que usaremos Telegram o Discord.
 
