@@ -82,9 +82,8 @@ Desde nuestra máquina cliente accedemos mediante navegador web utilizando la IP
 
 A través de la terminal de Prometheus nos conectamos poniendo la ip del server y el puerto correspondiente
 
+![conexión](../img/screen-prometheus.jpg)
+
+Luego en el navegador ponemos lo mismo, la ip del servidor, el puerto seguido de /metrics
 
 
-
-
-```bash
-http://IP_SERVIDOR:9090
