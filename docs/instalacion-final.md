@@ -86,4 +86,11 @@ A través de la terminal de Prometheus nos conectamos poniendo la ip del server 
 
 Luego en el navegador ponemos lo mismo, la ip del servidor, el puerto seguido de /metrics
 
+![metrics](../img/screen3.jpg)
+
+Comprobamos que todos los exporters estén funcionando 
+
+![exporters](../img/screen4.jpg)
+
+
 
