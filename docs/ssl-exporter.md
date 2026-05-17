@@ -116,7 +116,7 @@ curl http://localhost:9219/metrics
 
 http://localhost:9219/metrics
 
-```bash
+```
 ---
 
 Puerto por defecto
