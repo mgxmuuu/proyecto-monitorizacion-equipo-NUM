@@ -117,7 +117,7 @@ curl http://localhost:9219/metrics
 
 http://localhost:9219/metrics
 
-<br>
+
 ---
 
 Puerto por defecto
@@ -128,19 +128,18 @@ Puerto por defecto	9219
 Configuración	Sí
 
 
-<br>
+
 ---
 
 Métricas relevantes
 
-Métrica	Tipo	Qué mide	Por qué es útil
+ssl_cert_not_before (Gauge): indica la fecha desde la que el certificado SSL es válido. Es útil porque permite detectar certificados mal instalados o usados antes de su activación, lo que puede provocar errores de conexión.
 
-ssl_cert_not_before	Gauge	Fecha desde la que el certificado SSL es válido	Detecta certificados mal instalados o usados antes de su activación
-ssl_file_read_errors	Counter	Errores al leer archivos de certificados SSL	Detecta problemas de permisos, rutas o archivos corruptos
-ssl_tls_version_info	Gauge	Versión TLS usada en la conexión	Identifica protocolos antiguos o inseguros que suponen un riesgo
+ssl_file_read_errors (Counter): cuenta los errores al leer archivos de certificados SSL. Es útil porque ayuda a detectar problemas de permisos, rutas incorrectas o archivos corruptos que impedirían el correcto funcionamiento del servicio.
+
+ssl_tls_version_info (Gauge): indica la versión TLS utilizada en la conexión. Es útil porque permite identificar versiones antiguas o inseguras que pueden suponer un riesgo de seguridad.
 
 
-<br>
 ---
 
 Ejemplo de alerta
@@ -158,10 +157,9 @@ groups:
         summary: "Certificado SSL próximo a caducar"
         description: "El certificado SSL expirará en menos de 7 días."
 
-Qué hace esta alerta →
-Se activa cuando un certificado SSL está a punto de expirar (menos de 7 días). En ese caso, Prometheus lo marca como crítico y envía una notificación al sistema de alertas para que el administrador lo renueve antes de que el servicio se vea afectado.
+Qué hace esta alerta → Se activa cuando un certificado SSL está a punto de expirar (menos de 7 días). En ese caso, Prometheus lo marca como crítico y envía una notificación al sistema de alertas para que el administrador lo renueve antes de que el servicio deje de ser seguro.
 
-<br>
+
 ---
 
 Limitaciones del exporter
@@ -173,7 +171,7 @@ No analiza rendimiento del servidor ni aplicaciones
 No identifica la causa interna del fallo, solo el resultado
 
 
-<br>
+
 ---
 
 ¿Por qué he escogido este exporter?
