@@ -119,24 +119,19 @@ http://localhost:9219/metrics
 ```
 ---
 
-Puerto por defecto
+## Puerto por defecto
 
-Parámetro	Valor
-
-Puerto por defecto	9219
-Configuración	Sí
-
-
+El puerto por defecto es el **9219**
 
 ---
 
-Métricas relevantes
+## Métricas relevantes
 
-ssl_cert_not_before (Gauge): indica la fecha desde la que el certificado SSL es válido. Es útil porque permite detectar certificados mal instalados o usados antes de su activación, lo que puede provocar errores de conexión.
+**ssl_cert_not_before (Gauge)**: indica la fecha desde la que el certificado SSL es válido. Es útil porque permite detectar certificados mal instalados o usados antes de su activación, lo que puede provocar errores de conexión.
 
-ssl_file_read_errors (Counter): cuenta los errores al leer archivos de certificados SSL. Es útil porque ayuda a detectar problemas de permisos, rutas incorrectas o archivos corruptos que impedirían el correcto funcionamiento del servicio.
+**ssl_file_read_errors (Counter)**: cuenta los errores al leer archivos de certificados SSL. Es útil porque ayuda a detectar problemas de permisos, rutas incorrectas o archivos corruptos que impedirían el correcto funcionamiento del servicio.
 
-ssl_tls_version_info (Gauge): indica la versión TLS utilizada en la conexión. Es útil porque permite identificar versiones antiguas o inseguras que pueden suponer un riesgo de seguridad.
+**ssl_tls_version_info (Gauge)**: indica la versión TLS utilizada en la conexión. Es útil porque permite identificar versiones antiguas o inseguras que pueden suponer un riesgo de seguridad.
 
 
 ---
@@ -156,34 +151,33 @@ groups:
         summary: "Certificado SSL próximo a caducar"
         description: "El certificado SSL expirará en menos de 7 días."
 
-Qué hace esta alerta → Se activa cuando un certificado SSL está a punto de expirar (menos de 7 días). En ese caso, Prometheus lo marca como crítico y envía una notificación al sistema de alertas para que el administrador lo renueve antes de que el servicio deje de ser seguro.
+Qué hace esta alerta → **Se activa cuando un certificado SSL está a punto de expirar (menos de 7 días). En ese caso, Prometheus lo marca como crítico y envía una notificación al sistema de alertas para que el administrador lo renueve antes de que el servicio deje de ser seguro.**
 
 
 ---
 
-Limitaciones del exporter
+## Limitaciones del exporter
 
-Solo monitoriza certificados SSL/TLS
+Solo monitoriza certificados **SSL/TLS**.
 
-No analiza rendimiento del servidor ni aplicaciones
+No analiza rendimiento del servidor ni aplicaciones.
 
-No identifica la causa interna del fallo, solo el resultado
+No identifica la causa interna del fallo, solo el resultado.
 
 
 
 ---
 
-¿Por qué he escogido este exporter?
+## ¿Por qué he escogido este exporter?
 
-He elegido el SSL Exporter porque se centra directamente en la seguridad de las conexiones HTTPS, a diferencia de otros exporters como Nginx.
+He elegido el **SSL Exporter** porque se centra directamente en la seguridad de las conexiones HTTPS, a diferencia de otros exporters como Nginx.
 
 Permite:
 
-Detectar certificados próximos a caducar
+- Detectar certificados próximos a caducar
 
-Evitar errores de seguridad en navegadores
+- Evitar errores de seguridad en navegadores
 
-Mejorar la disponibilidad del servicio
+- Mejorar la disponibilidad del servicio
 
-
-Es una herramienta clave para entornos en producción donde la seguridad es crítica.
+---
