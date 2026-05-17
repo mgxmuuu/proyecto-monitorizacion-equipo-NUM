@@ -26,28 +26,52 @@ Permite mejorar la **seguridad y disponibilidad** de los servicios web.
 
 ## ¿Cómo se instala?
 
-### 1. Creamos el usuario del exporter --> Usuario sin permisos de login para ejecutar el servicio de forma segura:
+### 1. Crear usuario del exporter
+**Bash**
 ```bash
 sudo useradd --no-create-home --shell /usr/sbin/nologin ssl_exporter
 
-<br>2. Descargamos SSL-Exporter --> Vamos al repositorio oficial de GitHub y descargamos el binario:
+
+---
+
+2. Descargar el exporter
+
+Bash
 
 cd /tmp
+
 wget https://github.com/ribbybibby/ssl_exporter/releases/latest/download/ssl_exporter-linux-amd64.tar.gz
 
-<br>3. Descomprimimos el archivo --> Extraemos el contenido del paquete descargado:
+
+---
+
+3. Descomprimir
+
+Bash
 
 tar -xvf ssl_exporter-linux-amd64.tar.gz
 ls ssl_exporter-linux-amd64
 
-<br>4. Instalamos el binario --> Lo movemos al sistema para hacerlo ejecutable globalmente:
+
+---
+
+4. Instalar binario
+
+Bash
 
 sudo mv ssl_exporter-linux-amd64/ssl_exporter /usr/local/bin/
 sudo chmod +x /usr/local/bin/ssl_exporter
 
-<br>5. Creamos el servicio systemd --> Definimos el servicio para que se ejecute en segundo plano:
+
+---
+
+5. Crear servicio systemd
+
+Bash
 
 sudo nano /etc/systemd/system/ssl_exporter.service
+
+INI
 
 [Unit]
 Description=SSL Exporter for Prometheus
@@ -61,20 +85,35 @@ ExecStart=/usr/local/bin/ssl_exporter
 [Install]
 WantedBy=multi-user.target
 
-<br>6. Activamos el servicio --> Recargamos systemd y lo iniciamos:
+
+---
+
+6. Activar servicio
+
+Bash
 
 sudo systemctl daemon-reload
 sudo systemctl enable --now ssl_exporter
 
-<br>7. Comprobamos que funciona --> Verificamos el estado del servicio:
+
+---
+
+7. Comprobar estado
+
+Bash
 
 sudo systemctl status ssl_exporter
 
-<br>8. Probamos el endpoint --> Comprobamos que expone métricas correctamente:
+
+---
+
+8. Probar endpoint
+
+Bash
 
 curl http://localhost:9219/metrics
 
-📍 Endpoint por defecto:
+📍 Endpoint expuesto:
 
 http://localhost:9219/metrics
 
@@ -86,7 +125,7 @@ Puerto por defecto
 Parámetro	Valor
 
 Puerto por defecto	9219
-Configurable	Sí
+Configuración	Sí
 
 
 <br>
@@ -119,7 +158,8 @@ groups:
         summary: "Certificado SSL próximo a caducar"
         description: "El certificado SSL expirará en menos de 7 días."
 
-Qué hace esta alerta --> Se activa cuando un certificado está a menos de 7 días de expirar. En ese caso, Prometheus lo marca como crítico y envía una notificación al sistema de alertas para que el administrador lo renueve antes de que afecte al servicio.
+Qué hace esta alerta →
+Se activa cuando un certificado SSL está a punto de expirar (menos de 7 días). En ese caso, Prometheus lo marca como crítico y envía una notificación al sistema de alertas para que el administrador lo renueve antes de que el servicio se vea afectado.
 
 <br>
 ---
