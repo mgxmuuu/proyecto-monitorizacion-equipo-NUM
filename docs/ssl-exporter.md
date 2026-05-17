@@ -39,7 +39,6 @@ sudo useradd --no-create-home --shell /usr/sbin/nologin ssl_exporter
 Bash
 
 cd /tmp
-
 wget https://github.com/ribbybibby/ssl_exporter/releases/latest/download/ssl_exporter-linux-amd64.tar.gz
 
 
