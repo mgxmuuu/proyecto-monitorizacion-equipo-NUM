@@ -66,7 +66,7 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 sudo systemctl enable --now ssl_exporter
 
-<br>7. Comprobamos que funciona --> Verificamos que el servicio está activo:
+<br>7. Comprobamos que funciona --> Verificamos el estado del servicio:
 
 sudo systemctl status ssl_exporter
 
