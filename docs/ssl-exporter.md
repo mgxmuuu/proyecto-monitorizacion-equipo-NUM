@@ -163,9 +163,3 @@ Prevenir caducidad de certificados
 
 Detectar configuraciones inseguras TLS
 
-Asegurar conexiones HTTPS válidas
-
-
-
-
----
