@@ -1,11 +1,6 @@
 # **SSL-Exporter**
 
-### **Experto**
-**Alejandro Dutor**  
-<br>
-**1º ASIR**
-
-<br>
+### Experto: Alejandro Dutor
 
 ---
 
