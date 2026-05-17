@@ -1,65 +1,69 @@
+SSL-Exporter
 
+Experto
+
+Alejandro Dutor
+<br> 1º ASIR
+
+<br>
 ---
 
-SSL Exporter — Ficha Técnica
+## ¿Qué hace este exporter?
 
-Autor: Alejandro Dutor
+El SSL Exporter se encarga de monitorizar certificados SSL/TLS de servicios web.
+
+Su objetivo es:
+
+Garantizar la seguridad de conexiones HTTPS
+
+Detectar certificados caducados o mal configurados
+
+Anticipar fallos críticos en producción
 
 
+Permite mejorar la seguridad y disponibilidad de los servicios web.
+
+<br>
 ---
 
-1. ¿Qué es y para qué sirve?
+## ¿Cómo se instala?
 
-El SSL Exporter es una herramienta de monitorización que permite obtener métricas sobre certificados SSL/TLS para ser usadas con Prometheus.
-
-Su objetivo principal es:
-
-Detectar certificados próximos a caducar
-
-Verificar la validez de conexiones HTTPS
-
-Anticipar fallos de seguridad en servicios web
-
-
-
----
-
-2. Instalación y configuración
-
-2.1 Crear usuario del exporter
+1. Crear usuario del exporter
 
 sudo useradd --no-create-home --shell /usr/sbin/nologin ssl_exporter
 
-
+<br>
 ---
 
-2.2 Descargar la última versión
+2. Descargar el exporter
 
 cd /tmp
 
 wget https://github.com/ribbybibby/ssl_exporter/releases/latest/download/ssl_exporter-linux-amd64.tar.gz
 
-
+<br>
 ---
 
-2.3 Extraer archivos
+3. Descomprimir
 
 tar -xvf ssl_exporter-linux-amd64.tar.gz
+ls ssl_exporter-linux-amd64
 
-
+<br>
 ---
 
-2.4 Instalar binario
+4. Instalar binario
 
 sudo mv ssl_exporter-linux-amd64/ssl_exporter /usr/local/bin/
 sudo chmod +x /usr/local/bin/ssl_exporter
 
-
+<br>
 ---
 
-2.5 Crear servicio systemd
+5. Crear servicio systemd
 
-sudo tee /etc/systemd/system/ssl_exporter.service > /dev/null <<EOF
+sudo nano /etc/systemd/system/ssl_exporter.service
+
 [Unit]
 Description=SSL Exporter for Prometheus
 After=network.target
@@ -71,57 +75,59 @@ ExecStart=/usr/local/bin/ssl_exporter
 
 [Install]
 WantedBy=multi-user.target
-EOF
 
-
+<br>
 ---
 
-2.6 Activar servicio
+6. Activar servicio
 
 sudo systemctl daemon-reload
 sudo systemctl enable --now ssl_exporter
 
-
+<br>
 ---
 
-2.7 Verificar estado
+7. Comprobar estado
 
 sudo systemctl status ssl_exporter
 
-
+<br>
 ---
 
-2.8 Probar endpoint
+8. Probar endpoint
 
 curl http://localhost:9219/metrics
 
+📍 Endpoint expuesto:
+http://localhost:9219/metrics
 
+<br>
 ---
 
-3. Puerto por defecto
+## Puerto por defecto
 
 Parámetro	Valor
 
 Puerto por defecto	9219
-Configurable	Sí
+Configuración	Sí
 
 
-
+<br>
 ---
 
-4. Métricas relevantes
+## Métricas relevantes
 
 Métrica	Tipo	Qué mide	Por qué es útil
 
-ssl_cert_not_before	Gauge	Fecha desde la que el certificado SSL es válido	Detecta certificados instalados antes de su validez o errores de configuración
-ssl_file_read_errors	Counter	Errores al leer archivos de certificados SSL	Ayuda a detectar problemas de permisos, rutas incorrectas o ficheros dañados
-ssl_tls_version_info	Gauge	Versión del protocolo TLS usado en la conexión	Permite identificar versiones inseguras o antiguas de TLS
+ssl_cert_not_before	Gauge	Fecha desde la que el certificado SSL es válido	Detecta certificados mal instalados o usados antes de su activación
+ssl_file_read_errors	Counter	Errores al leer archivos de certificados SSL	Detecta problemas de permisos, rutas o archivos corruptos
+ssl_tls_version_info	Gauge	Versión TLS usada en la conexión	Identifica protocolos antiguos o inseguros que suponen un riesgo
 
 
-
+<br>
 ---
 
-5. Ejemplo de alerta
+## Ejemplo de alerta
 
 groups:
 - name: Alertas_SSL
@@ -136,30 +142,47 @@ groups:
         summary: "Certificado SSL próximo a caducar"
         description: "El certificado SSL expirará en menos de 7 días."
 
+<br>¿Qué haría esta alerta?
 
+Esta alerta se activaría cuando un certificado SSL esté a punto de expirar (menos de 7 días).
+
+En ese caso:
+
+Prometheus marcaría el servicio como crítico
+
+Se enviaría una notificación (Alertmanager, correo o sistema de alertas)
+
+El administrador debería renovar el certificado inmediatamente
+
+
+Evita caídas del servicio y problemas de seguridad en HTTPS.
+
+<br>
 ---
 
-6. Limitación del exporter
+## Limitaciones del exporter
 
-El SSL Exporter:
+Solo monitoriza certificados SSL/TLS
 
-Solo analiza certificados SSL/TLS
+No analiza rendimiento de servidores ni aplicaciones
 
-No monitoriza rendimiento de aplicaciones ni recursos del sistema
-
-No ofrece trazabilidad interna de errores
+No identifica la causa interna del fallo, solo el resultado final
 
 
-
+<br>
 ---
 
-7. ¿Por qué he elegido este exporter?
+## ¿Por qué he escogido este exporter?
 
-He elegido el SSL Exporter porque proporciona información más relevante en términos de seguridad que otros exporters como los de Nginx.
+He elegido el SSL Exporter porque se centra directamente en la seguridad de las conexiones HTTPS, a diferencia de otros exporters como Nginx.
 
-Mientras otros se centran en rendimiento o logs, este permite:
+Permite:
 
-Prevenir caducidad de certificados
+Detectar certificados a punto de caducar
 
-Detectar configuraciones inseguras TLS
+Evitar errores de seguridad en navegadores
 
+Mejorar la disponibilidad del servicio
+
+
+Es una herramienta clave para entornos en producción donde la seguridad es crítica.
